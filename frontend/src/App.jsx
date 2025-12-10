@@ -3,11 +3,16 @@ import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import LandingPage from "./pages/LandingPage";
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Landing Page */}
+    <Route path="/" element={<LandingPage />} />
+
         {/* Protected Route */}
         <Route
           path="/dashboard"

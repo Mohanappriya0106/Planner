@@ -4,6 +4,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
+import ForgotPassword from "./pages/ForgotPassword";
+
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
 
         {/* Optional: redirect unknown paths */}
         <Route path="*" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
       </Routes>
     </BrowserRouter>
   );

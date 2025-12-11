@@ -1,67 +1,120 @@
 import { useState } from "react";
-import axios from "axios";
 
 export default function Register() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  const [message, setMessage] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", formData);
-      setMessage("Registered successfully");
-    } catch (error) {
-      setMessage("Error: " + error.response?.data?.message);
-    }
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-lg w-80">
-        <h1 className="text-2xl font-bold mb-4 text-green-600">Register</h1>
+    <div className="min-h-screen flex">
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-          className="border p-2 w-full mb-3 rounded"
-        />
+      {/* Left Side */}
+      <div className="hidden md:flex w-1/2 bg-blue-50 flex-col justify-center px-16">
+        <h1 className="text-4xl font-bold text-blue-600">Planner</h1>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          className="border p-2 w-full mb-3 rounded"
-        />
+        <p className="mt-6 text-gray-700 text-lg">
+          Create your free Planner account and start managing your day better than ever.
+        </p>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          className="border p-2 w-full mb-3 rounded"
-        />
+        <div className="mt-10 space-y-4">
+          <div className="flex items-start space-x-3">
+            <span className="text-blue-600 text-xl">•</span>
+            <p className="text-gray-700">No complex setup — start planning instantly.</p>
+          </div>
+          <div className="flex items-start space-x-3">
+            <span className="text-blue-600 text-xl">•</span>
+            <p className="text-gray-700">Organize tasks and track progress.</p>
+          </div>
+        </div>
+      </div>
 
-        <button className="bg-green-600 w-full py-2 text-white rounded">
-          Register
-        </button>
+      {/* Right Side */}
+      <div className="flex w-full md:w-1/2 justify-center items-center px-8">
+        <div className="w-full max-w-md">
+          <h2 className="text-3xl font-bold text-gray-900 text-center">Create Account</h2>
+          <p className="text-gray-600 text-center mt-2">
+            Sign up to start planning your day.
+          </p>
 
-        {message && (
-          <p className="mt-3 text-center text-red-600">{message}</p>
-        )}
-      </form>
+          <form className="mt-10 space-y-5">
+
+            {/* Name */}
+            <div>
+              <label className="font-medium text-gray-700">Name</label>
+              <input
+                type="text"
+                className="mt-1 w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="Your Name"
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                className="mt-1 w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            {/* Password + Toggle */}
+            <div>
+              <label className="font-medium text-gray-700">Password</label>
+
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="mt-1 w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 pr-12"
+                  placeholder="********"
+                />
+
+                {/* Toggle Button */}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
+                >
+                  {showPassword ? (
+                    // Eye-Off Icon
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      fill="none" viewBox="0 0 24 24" strokeWidth="1.8"
+                      stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round"
+                        d="M3.98 8.223C2.77 9.659 2 11.276 2 12c0 .724.77 2.341 1.98 3.777C5.88 18.246 8.828 20 12 20c1.295 0 2.536-.248 3.682-.7M9.878 9.878a3 3 0 104.243 4.243M6.228 6.228A9.966 9.966 0 0112 4c3.172 0 6.12 1.754 8.02 4.223.883 1.049 1.56 2.157 1.815 2.947M3 3l18 18" />
+                    </svg>
+                  ) : (
+                    // Eye Icon
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      fill="none" viewBox="0 0 24 24" strokeWidth="1.8"
+                      stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round"
+                        d="M2.036 12.322a1.012 1.012 0 010-.644C3.423 7.51 7.36 4 12 4c4.638 0 8.573 3.507 9.963 7.678.07.207.07.437 0 .644C20.577 16.49 16.64 20 12 20c-4.638 0-8.573-3.507-9.963-7.678z" />
+                      <path strokeLinecap="round" strokeLinejoin="round"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition"
+            >
+              Sign Up
+            </button>
+
+          </form>
+
+          <p className="text-gray-600 text-center mt-6">
+            Already have an account?{" "}
+            <a href="/login" className="text-blue-600 font-medium hover:underline">
+              Login
+            </a>
+          </p>
+        </div>
+      </div>
+
     </div>
   );
 }

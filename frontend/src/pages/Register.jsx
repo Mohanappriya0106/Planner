@@ -1,12 +1,43 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    if (!form.name || !form.email || !form.password) {
+      alert("All fields are required.");
+      return;
+    }
+
+    // Mock registration success — later you can connect backend/Firebase
+    alert("Account created successfully!");
+
+    // Redirect to login page
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen flex">
 
-      {/* Left Side */}
+      {/* Left Section */}
       <div className="hidden md:flex w-1/2 bg-blue-50 flex-col justify-center px-16">
         <h1 className="text-4xl font-bold text-blue-600">Planner</h1>
 
@@ -19,6 +50,7 @@ export default function Register() {
             <span className="text-blue-600 text-xl">•</span>
             <p className="text-gray-700">No complex setup — start planning instantly.</p>
           </div>
+
           <div className="flex items-start space-x-3">
             <span className="text-blue-600 text-xl">•</span>
             <p className="text-gray-700">Organize tasks and track progress.</p>
@@ -26,7 +58,7 @@ export default function Register() {
         </div>
       </div>
 
-      {/* Right Side */}
+      {/* Right Section */}
       <div className="flex w-full md:w-1/2 justify-center items-center px-8">
         <div className="w-full max-w-md">
           <h2 className="text-3xl font-bold text-gray-900 text-center">Create Account</h2>
@@ -34,12 +66,15 @@ export default function Register() {
             Sign up to start planning your day.
           </p>
 
-          <form className="mt-10 space-y-5">
+          <form onSubmit={handleRegister} className="mt-10 space-y-5">
 
             {/* Name */}
             <div>
               <label className="font-medium text-gray-700">Name</label>
               <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
                 type="text"
                 className="mt-1 w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 placeholder="Your Name"
@@ -50,31 +85,36 @@ export default function Register() {
             <div>
               <label className="font-medium text-gray-700">Email</label>
               <input
+                name="email"
+                value={form.email}
+                onChange={handleChange}
                 type="email"
                 className="mt-1 w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 placeholder="you@example.com"
               />
             </div>
 
-            {/* Password + Toggle */}
+            {/* Password */}
             <div>
               <label className="font-medium text-gray-700">Password</label>
 
               <div className="relative">
                 <input
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   className="mt-1 w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 pr-12"
                   placeholder="********"
                 />
 
-                {/* Toggle Button */}
+                {/* Toggle password visibility */}
                 <button
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
                 >
                   {showPassword ? (
-                    // Eye-Off Icon
                     <svg xmlns="http://www.w3.org/2000/svg"
                       fill="none" viewBox="0 0 24 24" strokeWidth="1.8"
                       stroke="currentColor" className="w-6 h-6">
@@ -82,7 +122,6 @@ export default function Register() {
                         d="M3.98 8.223C2.77 9.659 2 11.276 2 12c0 .724.77 2.341 1.98 3.777C5.88 18.246 8.828 20 12 20c1.295 0 2.536-.248 3.682-.7M9.878 9.878a3 3 0 104.243 4.243M6.228 6.228A9.966 9.966 0 0112 4c3.172 0 6.12 1.754 8.02 4.223.883 1.049 1.56 2.157 1.815 2.947M3 3l18 18" />
                     </svg>
                   ) : (
-                    // Eye Icon
                     <svg xmlns="http://www.w3.org/2000/svg"
                       fill="none" viewBox="0 0 24 24" strokeWidth="1.8"
                       stroke="currentColor" className="w-6 h-6">

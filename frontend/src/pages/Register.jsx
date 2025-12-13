@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
+
+
 
 export default function Register() {
   const navigate = useNavigate();
@@ -19,20 +21,40 @@ export default function Register() {
     });
   };
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+  const handleRegister = async (e) => {
+  e.preventDefault();
 
-    if (!form.name || !form.email || !form.password) {
-      alert("All fields are required.");
+  if (!form.name || !form.email || !form.password) {
+    alert("All fields are required.");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Registration failed");
       return;
     }
 
-    // Mock registration success — later you can connect backend/Firebase
-    alert("Account created successfully!");
+    // alert("Account created successfully!");
+    navigate("/login", { replace: true });
 
-    // Redirect to login page
-    navigate("/login");
-  };
+
+  } catch (error) {
+    console.error(error);
+    alert("Server error");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex">
@@ -146,11 +168,15 @@ export default function Register() {
           </form>
 
           <p className="text-gray-600 text-center mt-6">
-            Already have an account?{" "}
-            <a href="/login" className="text-blue-600 font-medium hover:underline">
-              Login
-            </a>
-          </p>
+  Already have an account?{" "}
+  <Link
+    to="/login"
+    className="text-blue-600 font-medium hover:underline"
+  >
+    Login
+  </Link>
+</p>
+
         </div>
       </div>
 

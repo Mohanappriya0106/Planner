@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -30,7 +31,9 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Optional: redirect unknown paths */}
-        <Route path="*" element={<Login />} />
+        {/* <Route path="*" element={<Login />} /> */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
       </Routes>

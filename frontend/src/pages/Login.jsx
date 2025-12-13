@@ -1,9 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
+
+
 
 export default function Login() {
   const navigate = useNavigate();
+
+  if (localStorage.getItem("token")) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
 
   // UI + form state
   const [email, setEmail] = useState("");
@@ -38,7 +45,8 @@ export default function Login() {
       setLoading(false);
       setMessage("Login successful — redirecting...");
       // Small delay to show message, then navigate
-      setTimeout(() => navigate("/dashboard"), 600);
+      setTimeout(() => navigate("/dashboard", { replace: true }), 600);
+
     } catch (err) {
       setLoading(false);
       const errMsg = err.response?.data?.message || err.message || "Login failed";
@@ -148,7 +156,13 @@ export default function Login() {
 
             {/* Forgot Password */}
             <div className="text-right">
-              <a href="/forgot-password" className="text-blue-600 text-sm hover:underline">Forgot Password?</a>
+              <Link
+  to="/forgot-password"
+  className="text-blue-600 text-sm hover:underline"
+>
+  Forgot Password?
+</Link>
+
             </div>
 
             <button
@@ -162,7 +176,13 @@ export default function Login() {
 
           <p className="text-gray-600 text-center mt-6">
             Don’t have an account?{" "}
-            <a href="/register" className="text-blue-600 font-medium hover:underline">Sign Up</a>
+            <Link
+  to="/register"
+  className="text-blue-600 font-medium hover:underline"
+>
+  Sign Up
+</Link>
+
           </p>
 
         </div>

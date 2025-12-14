@@ -8,6 +8,9 @@ import { authMiddleware } from "./middleware/authMiddleware.js";
 // app.use(cors());
 
 dotenv.config();
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS:", process.env.EMAIL_PASS);
+
 const app = express();
 app.use(express.json());
 app.use(cors());

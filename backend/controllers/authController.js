@@ -2,6 +2,12 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+import crypto from "crypto";
+// import User from "../models/User.js";
+import PasswordReset from "../models/PasswordReset.js";
+import sendEmail from "../utils/sendEmail.js";
+
+
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -51,3 +57,52 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const message =
+      "If an account exists, a reset link has been sent to your email.";
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(200).json({ message });
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+
+    const tokenHash = crypto
+      .createHash("sha256")
+      .update(token)
+      .digest("hex");
+
+    await PasswordReset.create({
+      userId: user._id,
+      tokenHash,
+      expiresAt: Date.now() + 15 * 60 * 1000,
+    });
+
+    const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+
+    await sendEmail({
+      to: user.email,
+      subject: "Reset Password",
+      html: `
+        <p>Click below to reset your password</p>
+        <a href="${resetLink}">Reset Password</a>
+        <p>Link expires in 15 minutes</p>
+      `,
+    });
+
+    return res.status(200).json({ message });
+  } catch (error) {
+  console.error("FORGOT PASSWORD FULL ERROR 👉", error);
+  return res.status(500).json({
+    message: "Server error",
+    error: error.message,
+  });
+}
+
+};
+

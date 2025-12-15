@@ -1,1 +1,47 @@
 @import "tailwindcss";
+@import "react-calendar/dist/Calendar.css";
+
+/* Calendar base */
+.react-calendar {
+  border: none;
+  font-family: inherit;
+}
+
+/* Navigation (month header) */
+.react-calendar__navigation button {
+  color: #2563eb; /* blue-600 */
+  font-weight: 600;
+}
+
+.react-calendar__navigation button:disabled {
+  color: #9ca3af;
+}
+
+/* Weekdays */
+.react-calendar__month-view__weekdays {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+/* Day tiles */
+.react-calendar__tile {
+  border-radius: 6px;
+  padding: 0.5rem 0;
+}
+
+/* Hover */
+.react-calendar__tile:enabled:hover {
+  background: #eff6ff;
+}
+
+/* Active day */
+.react-calendar__tile--active {
+  background: #2563eb;
+  color: white;
+}
+
+/* Today */
+.react-calendar__tile--now {
+  background: #dbeafe;
+}

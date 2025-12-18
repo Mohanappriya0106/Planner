@@ -5,18 +5,28 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white">
       {/* Navbar */}
       <nav className="flex justify-between items-center px-10 py-6 shadow-sm">
-        <h1 className="text-2xl font-bold text-blue-600">Planner</h1>
+  <div className="flex items-center space-x-2">
+    <img
+      src="/logo.jpg"
+      alt="Planner Logo"
+      className="h-8 w-8"
+    />
+    <h1 className="text-2xl font-bold text-blue-600">Planner</h1>
+  </div>
 
-        <div className="space-x-4">
-          <a href="/login" className="text-gray-700 hover:text-blue-600 font-medium">Login</a>
-          <a 
-            href="/register"
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-          >
-            Sign Up
-          </a>
-        </div>
-      </nav>
+  <div className="space-x-4">
+    <a href="/login" className="text-gray-700 hover:text-blue-600 font-medium">
+      Login
+    </a>
+    <a
+      href="/register"
+      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+    >
+      Sign Up
+    </a>
+  </div>
+</nav>
+
 
       {/* Hero Section */}
       <section className="px-10 py-24 text-center">

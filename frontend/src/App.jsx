@@ -7,6 +7,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import AddTopic from "./pages/AddTopics";
+
 
 
 
@@ -23,6 +25,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/add-topic"
+          element={
+            <ProtectedRoute>
+              <AddTopic />
             </ProtectedRoute>
           }
         />

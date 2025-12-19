@@ -1,8 +1,14 @@
 import Header from "../components/Header";
 import RevisionSection from "../components/RevisionSection";
 import CalendarPanel from "../components/CalenderPanel";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 export default function Dashboard() {
+
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -30,9 +36,13 @@ export default function Dashboard() {
       </main>
 
       {/* Primary Action */}
-      <button className="fixed bottom-8 right-10 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md shadow-md transition">
-        + Add Topic
-      </button>
+      <button
+  onClick={() => navigate("/add-topic")}
+  className="fixed bottom-8 right-10 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md shadow-md transition"
+>
+  + Add Topic
+</button>
+
     </div>
   );
 }

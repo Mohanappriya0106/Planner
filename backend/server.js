@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 // import cors from "cors";
 // app.use(cors());
+// Minor update to maintain streak - no functional change
 
 dotenv.config();
 

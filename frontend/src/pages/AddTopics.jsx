@@ -6,6 +6,7 @@ export default function AddTopic() {
   const [notes, setNotes] = useState("");
   const [date, setDate] = useState("");
 
+  // enhancement
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
